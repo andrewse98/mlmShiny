@@ -25,7 +25,7 @@ golem::fill_desc(
   authors = person(
     given = "Andrew", # Your First Name
     family = "Setiono", # Your Last Name
-    email = "", # Your email
+    email = "andrewsetiono98@gmail.com", # Your email
     role = c("aut", "cre") # Your role (here author/creator)
   ),
   repo_url = NULL, # The URL of the GitHub repo (optional),
@@ -35,6 +35,12 @@ golem::fill_desc(
 
 ## Install the required dev dependencies ----
 golem::install_dev_deps()
+
+## Library ----
+usethis::use_package("shiny")
+usethis::use_package("ggplot2")
+usethis::use_package("lme4")
+usethis::use_package("dplyr")
 
 ## Create Common Files ----
 ## See ?usethis for more information

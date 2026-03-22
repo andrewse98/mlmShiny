@@ -6,11 +6,57 @@
 #' @noRd
 app_ui <- function(request) {
   tagList(
-    # Leave this function for adding external resources
-    golem_add_external_resources(),
-    # Your application UI logic
+    withMathJax(),
+
     fluidPage(
-      golem::golem_welcome_page() # Remove this line to start building your UI
+      titlePanel("MLM Error Simulator"),
+      sidebarLayout(
+        sidebarPanel(
+          sliderInput(
+            "tau2_00",
+            "Level-2 random intercept variance (\u03c4\u00b2\u2080\u2080):",
+            min = 0,
+            max = 10,
+            value = 5
+          ),
+          sliderInput(
+            "tau2_11",
+            "Level-2 random slope variance (\u03c4\u00b2\u2081\u2081):",
+            min = 0,
+            max = 10,
+            value = 3
+          ),
+          sliderInput(
+            "tau2_01",
+            "Level-2 covariance between random intercept and random slope (\u03c4\u00b2\u2080\u2081):",
+            min = 0,
+            max = 10,
+            value = 1
+          ),
+          sliderInput(
+            "sigma2",
+            "Level-1 variance (\u03c3\u00b2):",
+            min = 0,
+            max = 10,
+            value = 3
+          ),
+          checkboxInput(
+            inputId = "show_boxplot",
+            label = "Show Boxplots (Group Distributions)",
+            value = TRUE
+          )
+        ),
+
+        mainPanel(
+          uiOutput("dynamic_formula"),
+          plotOutput("mlm_plot"),
+          wellPanel(
+            h4("Intraclass Correlation (ICC)"),
+            tags$p("Proportion of variance explained by groups:"),
+            textOutput("icc_value")
+          )
+        ),
+      )
     )
   )
 }
